@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { FaTrophy } from "react-icons/fa";
+import { FaTrophy, FaUser, FaEnvelope, FaImage, FaLock } from "react-icons/fa";
 import { FcGoogle } from 'react-icons/fc';
 
 const Register = () => {
@@ -54,46 +54,46 @@ const Register = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <FiTrophy className="text-primary-400 text-3xl" />
+            <FaTrophy className="text-primary-400 text-3xl" />
             <span className="font-display text-3xl text-primary-400">SportNest</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create Account</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Join SportNest and start booking today</p>
         </div>
 
-        <div className="card p-8">
+        <div className="card p-8 bg-white dark:bg-gray-900 shadow rounded-xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
               <div className="relative">
-                <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input className="input-field pl-10" placeholder="Your Name" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
+                <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input className="input-field pl-10 w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 dark:bg-gray-800 dark:text-white" placeholder="Your Name" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
               <div className="relative">
-                <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input type="email" className="input-field pl-10" placeholder="your@email.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
+                <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input type="email" className="input-field pl-10 w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 dark:bg-gray-800 dark:text-white" placeholder="your@email.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Photo URL (optional)</label>
               <div className="relative">
-                <FiImage className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input className="input-field pl-10" placeholder="https://..." value={form.photo} onChange={e => setForm(f => ({ ...f, photo: e.target.value }))} />
+                <FaImage className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input className="input-field pl-10 w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 dark:bg-gray-800 dark:text-white" placeholder="https://..." value={form.photo} onChange={e => setForm(f => ({ ...f, photo: e.target.value }))} />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
               <div className="relative">
-                <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input type="password" className="input-field pl-10" placeholder="Min 6 chars, upper + lower" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required />
+                <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input type="password" className="input-field pl-10 w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 dark:bg-gray-800 dark:text-white" placeholder="Min 6 chars, upper + lower" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required />
               </div>
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
             </div>
 
-            <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2 mt-2">
+            <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2 mt-2 bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-lg transition">
               {loading && <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>}
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
@@ -106,7 +106,7 @@ const Register = () => {
           </div>
 
           <button onClick={handleGoogle}
-            className="w-full flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-600 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition text-sm font-medium text-gray-700 dark:text-gray-200">
+            className="w-full flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-600 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition text-sm font-medium text-gray-700 dark:text-gray-200">
             <FcGoogle className="text-xl" /> Continue with Google
           </button>
 
