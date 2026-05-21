@@ -27,7 +27,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await axios.post(`${import.meta.env.VITE_API_URL}/auth/logout`, {}, { withCredentials: true });
+    // লোকাল স্টোরেজ থেকে টোকেন মুছে ফেলা হচ্ছে এবং ফায়ারবেস থেকে সাইনআউট
+    localStorage.removeItem('access-token');
     return signOut(auth);
   };
 
@@ -38,14 +39,18 @@ export const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         try {
-          await axios.post(
-            `${import.meta.env.VITE_API_URL}/auth/jwt`,
-            { email: currentUser.email },
-            { withCredentials: true }
-          );
+          
+          const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/jwt`, { email: currentUser.email });
+          
+          
+          if (res.data.token) {
+            localStorage.setItem('access-token', res.data.token);
+          }
         } catch (err) {
           console.error('JWT error:', err);
         }
+      } else {
+        localStorage.removeItem('access-token');
       }
       setLoading(false);
     });
