@@ -17,7 +17,8 @@ const ManageFacilities = () => {
     
     try {
       setLoading(true);
-      const res = await axiosSecure.get('/api/facilities/my/facilities');
+      // ব্যাকএন্ডের রিকোয়ারমেন্ট অনুযায়ী ইমেইল কুয়েরি প্যারামিটার (?email=...) যোগ করা হলো
+      const res = await axiosSecure.get(`/api/facilities/my/facilities?email=${user.email}`);
       setFacilities(res.data);
     } catch (error) {
       console.error(error);

@@ -35,7 +35,8 @@ const AddFacility = () => {
       if (res.data.insertedId) {
         toast.success('Facility added successfully! 🎉');
         form.reset();
-        navigate('/manage'); 
+        // নেভিগেশন পাথ ঠিক করে '/manage-facilities' করা হলো
+        navigate('/manage-facilities'); 
       }
     } catch (error) {
       console.error(error);
