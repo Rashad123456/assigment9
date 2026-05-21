@@ -13,12 +13,11 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'https://assigment9-meaw1.vercel.app',
-    'https://assigment9-lb7tnx0dl-meaw1.vercel.app' 
+    'https://assigment9-lb7tnx0dl-meaw1.vercel.app',
+    'https://assigment9-theta.vercel.app'
   ],
   credentials: true
 }));
-app.use(express.json());
-app.use(cookieParser());
 
 
 const uri = process.env.MONGO_URI;
