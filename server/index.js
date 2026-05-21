@@ -19,6 +19,12 @@ app.use(cors({
   credentials: true
 }));
 
+// ঠিক এখানে এই জাদুর লাইনটি বসান
+app.use(express.json());
+
+// ঠিক এখানে এই জাদুর লাইনটি বসান
+app.use(express.json());
+
 
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, {
