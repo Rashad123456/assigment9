@@ -19,7 +19,7 @@ router.post('/jwt', (req, res) => {
   res.json({ success: true, message: 'Token issued' });
 });
 
-// Clear cookie on logout
+
 router.post('/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,

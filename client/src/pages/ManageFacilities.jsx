@@ -17,7 +17,8 @@ const ManageFacilities = () => {
     
     try {
       setLoading(true);
-      const res = await axiosSecure.get(`/facilities/my/facilities?email=${user.email}`);
+      // এখানে অতিরিক্ত কুয়েরি প্যারামিটার মুছে শুধু সঠিক রাউটটি দেওয়া হয়েছে
+      const res = await axiosSecure.get('/facilities/my/facilities');
       setFacilities(res.data);
     } catch (error) {
       console.error(error);
@@ -69,7 +70,7 @@ const ManageFacilities = () => {
         </Link>
       </div>
 
-      {facilities.length === 0 ? (
+      {facilities?.length === 0 ? (
         <div className="text-center py-20 text-gray-400">
           <p className="text-5xl mb-4">🏟️</p>
           <p className="text-lg font-medium">No facilities yet.</p>
@@ -77,7 +78,7 @@ const ManageFacilities = () => {
         </div>
       ) : (
         <div className="space-y-4">
-          {facilities.map(f => (
+          {facilities?.map(f => (
             <div key={f._id} className="card p-5 flex flex-col sm:flex-row sm:items-center gap-4 bg-gray-900 border border-gray-800">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">

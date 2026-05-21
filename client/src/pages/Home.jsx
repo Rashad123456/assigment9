@@ -8,10 +8,10 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ⚠️ নিচে 'আপনার-সার্ভার-লিংক' এর জায়গায় আপনার Backend এর আসল Vercel লিংকটি দেবেন ⚠️
+    
     axios.get('https://.vercel.app/api/facilities')
       .then(res => {
-        // ডেটা যদি Array হয়, তবেই কাজ করবে
+       
         if(Array.isArray(res.data)){
            setFacilities(res.data.slice(0, 6)); 
         }

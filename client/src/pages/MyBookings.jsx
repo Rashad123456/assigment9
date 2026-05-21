@@ -57,10 +57,10 @@ const MyBookings = () => {
       <div className="mb-8">
         <p className="text-primary-400 text-sm font-semibold uppercase tracking-widest mb-1">Dashboard</p>
         <h1 className="section-title">My Bookings</h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">{bookings.length} total booking{bookings.length !== 1 ? 's' : ''}</p>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">{bookings?.length} total booking{bookings?.length !== 1 ? 's' : ''}</p>
       </div>
 
-      {bookings.length === 0 ? (
+      {bookings?.length === 0 ? (
         <div className="text-center py-20 text-gray-400">
           <p className="text-5xl mb-4">📅</p>
           <p className="text-lg font-medium">No bookings yet!</p>
@@ -69,7 +69,8 @@ const MyBookings = () => {
         </div>
       ) : (
         <div className="space-y-4">
-          {bookings.map(b => (
+          
+          {bookings?.map(b => (
             <div key={b._id} className="card p-5 flex flex-col sm:flex-row sm:items-center gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2 mb-2">

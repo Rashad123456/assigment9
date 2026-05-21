@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosSecure from '../utils/axiosSecure';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
+
 const AddFacility = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ const AddFacility = () => {
     const price_per_hour = parseFloat(form.price_per_hour.value);
     const image = form.image.value; 
 
-    
     const newFacility = {
       name,
       facility_type,
@@ -35,8 +35,8 @@ const AddFacility = () => {
       if (res.data.insertedId) {
         toast.success('Facility added successfully! 🎉');
         form.reset();
-        // সাকসেস হলে সরাসরি Manage Facilities পেজে নিয়ে যাবে
-        navigate('/manage-facilities'); 
+        // আপনার নেভিগেশন বার অনুযায়ী পাথ পরিবর্তন করে '/manage' করা হয়েছে
+        navigate('/manage'); 
       }
     } catch (error) {
       console.error(error);
@@ -53,7 +53,6 @@ const AddFacility = () => {
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Facility Name */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Facility Name</label>
               <input 
@@ -80,7 +79,6 @@ const AddFacility = () => {
               </select>
             </div>
 
-            
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Location</label>
               <input 
@@ -104,7 +102,6 @@ const AddFacility = () => {
             </div>
           </div>
 
-         
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Image URL (ImgBB)</label>
             <input 
@@ -116,7 +113,6 @@ const AddFacility = () => {
             />
           </div>
 
-     
           <button 
             type="submit" 
             disabled={loading} 

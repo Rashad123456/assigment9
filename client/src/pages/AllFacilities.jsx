@@ -40,14 +40,12 @@ const AllFacilities = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Header */}
       <div className="mb-8">
         <p className="text-primary-400 text-sm font-semibold uppercase tracking-widest mb-1">Explore</p>
         <h1 className="section-title">All Facilities</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2">Find the perfect sports venue for your next game</p>
       </div>
 
-      {/* Search */}
       <form onSubmit={handleSearch} className="flex gap-3 mb-5">
         <div className="relative flex-1">
           <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -61,7 +59,6 @@ const AllFacilities = () => {
         <button type="submit" className="btn-primary px-6">Search</button>
       </form>
 
-      {/* Filter chips */}
       <div className="flex flex-wrap gap-2 mb-8">
         {TYPES.map(t => (
           <button
@@ -76,8 +73,7 @@ const AllFacilities = () => {
         ))}
       </div>
 
-      {/* Results */}
-      {loading ? <LoadingSpinner /> : facilities.length === 0 ? (
+      {loading ? <LoadingSpinner /> : facilities?.length === 0 ? (
         <div className="text-center py-20 text-gray-400">
           <p className="text-5xl mb-4">🔍</p>
           <p className="text-lg font-medium">No facilities found for your search.</p>
@@ -85,9 +81,10 @@ const AllFacilities = () => {
         </div>
       ) : (
         <>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{facilities.length} facilities found</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{facilities?.length} facilities found</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {facilities.map(f => <FacilityCard key={f._id} facility={f} />)}
+            {/* এখানে ক্র্যাশ প্রোটেকশন দেওয়া হয়েছে */}
+            {facilities?.map(f => <FacilityCard key={f._id} facility={f} />)}
           </div>
         </>
       )}
