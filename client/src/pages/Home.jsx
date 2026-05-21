@@ -8,10 +8,13 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  
-    axios.get('http://localhost:5000/api/facilities')
+    // ⚠️ নিচে 'আপনার-সার্ভার-লিংক' এর জায়গায় আপনার Backend এর আসল Vercel লিংকটি দেবেন ⚠️
+    axios.get('https://.vercel.app/api/facilities')
       .then(res => {
-        setFacilities(res.data.slice(0, 6)); 
+        // ডেটা যদি Array হয়, তবেই কাজ করবে
+        if(Array.isArray(res.data)){
+           setFacilities(res.data.slice(0, 6)); 
+        }
         setLoading(false);
       })
       .catch(err => {
@@ -23,7 +26,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       
-     
+      {/* 1. Banner Section */}
       <section className="relative bg-primary-900 dark:bg-black text-white py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img 
@@ -48,7 +51,7 @@ const Home = () => {
         </div>
       </section>
 
-      
+      {/* 2. Featured Facilities Section (Dynamic) */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Facilities</h2>
@@ -59,13 +62,14 @@ const Home = () => {
           <div className="text-center text-primary-500 font-bold text-xl my-10">
             <span className="animate-pulse">Loading amazing facilities...</span>
           </div>
-        ) : facilities.length === 0 ? (
+        ) : facilities?.length === 0 ? (
           <div className="text-center text-gray-500 my-10">
             No facilities found. Please add some from the Owner Panel!
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {facilities.map((facility) => (
+            {/* এখানে ঐচ্ছিক চেইনিং (?.) ব্যবহার করা হয়েছে যাতে ক্র্যাশ না করে */}
+            {facilities?.map((facility) => (
               <div key={facility._id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border border-gray-100 dark:border-gray-700">
                 <div className="h-48 bg-gray-200 dark:bg-gray-700 flex justify-center items-center overflow-hidden">
                   {facility.image ? (
@@ -94,7 +98,7 @@ const Home = () => {
         </div>
       </section>
 
-      
+      {/* 3. Extra Section 1: How It Works */}
       <section className="bg-white dark:bg-gray-950 py-16 border-y border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">How It Works</h2>
@@ -118,7 +122,7 @@ const Home = () => {
         </div>
       </section>
 
-    
+      {/* 4. Extra Section 2: Popular Sports */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Popular Sports</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">

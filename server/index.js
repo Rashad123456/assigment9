@@ -10,13 +10,17 @@ const port = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: ['http://localhost:5173'], 
+  origin: [
+    'http://localhost:5173', 
+    'https://assigment9-2c7h.vercel.app' 
+  ],
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
-// MongoDB Connection
+
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, {
   serverApi: {
