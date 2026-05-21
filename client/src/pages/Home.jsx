@@ -1,11 +1,29 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFutbol, FaSwimmer, FaTableTennis } from 'react-icons/fa';
+import axios from 'axios';
 
 const Home = () => {
+  const [facilities, setFacilities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  
+    axios.get('http://localhost:5000/api/facilities')
+      .then(res => {
+        setFacilities(res.data.slice(0, 6)); 
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching facilities:", err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       
-      {/* 1. Banner Section */}
+     
       <section className="relative bg-primary-900 dark:bg-black text-white py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img 
@@ -30,39 +48,53 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 2. Featured Facilities Section (Dynamic Placeholder) */}
+      
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Facilities</h2>
           <p className="text-gray-600 dark:text-gray-400">Book our most popular venues before they get fully reserved!</p>
         </div>
         
-        {/* Placeholder for dynamic cards (We will fetch these from MongoDB later) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <div key={item} className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition">
-              <div className="h-48 bg-gray-300 dark:bg-gray-700 animate-pulse flex justify-center items-center">
-                 <span className="text-gray-500 dark:text-gray-400">Image Loading...</span>
-              </div>
-              <div className="p-5">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Facility Name {item}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Location: Dhaka</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-accent-500 font-bold">$20 / hr</span>
-                  <button className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded text-sm transition">
-                    Book Now
-                  </button>
+        {loading ? (
+          <div className="text-center text-primary-500 font-bold text-xl my-10">
+            <span className="animate-pulse">Loading amazing facilities...</span>
+          </div>
+        ) : facilities.length === 0 ? (
+          <div className="text-center text-gray-500 my-10">
+            No facilities found. Please add some from the Owner Panel!
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {facilities.map((facility) => (
+              <div key={facility._id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border border-gray-100 dark:border-gray-700">
+                <div className="h-48 bg-gray-200 dark:bg-gray-700 flex justify-center items-center overflow-hidden">
+                  {facility.image ? (
+                    <img src={facility.image} alt={facility.name} className="w-full h-full object-cover transition-transform duration-300 hover:scale-110" />
+                  ) : (
+                    <span className="text-gray-500 dark:text-gray-400">No Image</span>
+                  )}
+                </div>
+                <div className="p-5">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{facility.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 capitalize">Location: {facility.location}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-primary-500 font-bold text-lg">৳{facility.price_per_hour} <span className="text-sm font-normal text-gray-500">/ hr</span></span>
+                    <Link to={`/facility/${facility._id}`} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-lg transition">
+                      Book Now
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+        
         <div className="text-center mt-10">
            <Link to="/facilities" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">View All Facilities &rarr;</Link>
         </div>
       </section>
 
-      {/* 3. Extra Section 1: How It Works */}
+      
       <section className="bg-white dark:bg-gray-950 py-16 border-y border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">How It Works</h2>
@@ -86,20 +118,20 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 4. Extra Section 2: Popular Sports */}
+    
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Popular Sports</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           <div className="bg-primary-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-lg transition cursor-pointer border border-transparent hover:border-primary-200 dark:hover:border-primary-700">
-            <FaFutbol className="text-5xl text-accent-500 mx-auto mb-4" />
+            <FaFutbol className="text-5xl text-primary-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold dark:text-white">Football Turfs</h3>
           </div>
           <div className="bg-primary-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-lg transition cursor-pointer border border-transparent hover:border-primary-200 dark:hover:border-primary-700">
-            <FaSwimmer className="text-5xl text-accent-500 mx-auto mb-4" />
+            <FaSwimmer className="text-5xl text-primary-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold dark:text-white">Swimming Pools</h3>
           </div>
           <div className="bg-primary-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-lg transition cursor-pointer border border-transparent hover:border-primary-200 dark:hover:border-primary-700">
-            <FaTableTennis className="text-5xl text-accent-500 mx-auto mb-4" />
+            <FaTableTennis className="text-5xl text-primary-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold dark:text-white">Tennis Courts</h3>
           </div>
         </div>

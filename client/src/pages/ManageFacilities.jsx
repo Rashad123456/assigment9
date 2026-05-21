@@ -5,23 +5,35 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import { FiEdit2, FiTrash2, FiMapPin, FiPlus } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext'; 
 
 const ManageFacilities = () => {
   const [facilities, setFacilities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth(); 
 
   const fetchFacilities = async () => {
+    if (!user?.email) return; 
+    
     try {
-      const res = await axiosSecure.get('/facilities/my/facilities');
+      setLoading(true);
+      const res = await axiosSecure.get(`/facilities/my/facilities?email=${user.email}`);
       setFacilities(res.data);
-    } catch {
+    } catch (error) {
+      console.error(error);
       toast.error('Failed to load facilities');
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => { fetchFacilities(); }, []);
+  useEffect(() => {
+    if (user?.email) {
+      fetchFacilities();
+    } else {
+      setLoading(false); 
+    }
+  }, [user]);
 
   const handleDelete = async (id, name) => {
     const result = await Swal.fire({
@@ -46,11 +58,11 @@ const ManageFacilities = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-black min-h-screen">
       <div className="flex items-baseline justify-between mb-8">
         <div>
           <p className="text-primary-400 text-sm font-semibold uppercase tracking-widest mb-1">Owner Panel</p>
-          <h1 className="section-title">Manage My Facilities</h1>
+          <h1 className="section-title text-white">Manage My Facilities</h1>
         </div>
         <Link to="/add-facility" className="btn-primary flex items-center gap-1 text-sm">
           <FiPlus /> Add New
@@ -66,24 +78,24 @@ const ManageFacilities = () => {
       ) : (
         <div className="space-y-4">
           {facilities.map(f => (
-            <div key={f._id} className="card p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+            <div key={f._id} className="card p-5 flex flex-col sm:flex-row sm:items-center gap-4 bg-gray-900 border border-gray-800">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{f.name}</h3>
-                  <span className="text-xs bg-primary-50 dark:bg-gray-700 text-primary-600 dark:text-primary-300 px-2.5 py-0.5 rounded-full capitalize">{f.facility_type}</span>
+                  <h3 className="font-semibold text-white text-lg">{f.name}</h3>
+                  <span className="text-xs bg-primary-900 text-primary-300 px-2.5 py-0.5 rounded-full capitalize">{f.facility_type}</span>
                 </div>
-                <div className="flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex flex-wrap gap-3 text-sm text-gray-400">
                   <span className="flex items-center gap-1"><FiMapPin className="text-primary-400" />{f.location}</span>
                   <span className="text-primary-400 font-semibold">৳{f.price_per_hour}/hr</span>
                   <span>{f.booking_count || 0} bookings</span>
                 </div>
               </div>
               <div className="flex gap-2">
-                <Link to={`/edit-facility/${f._id}`} className="btn-outline text-sm flex items-center gap-1 px-4 py-2">
+                <Link to={`/edit-facility/${f._id}`} className="btn-outline text-sm flex items-center gap-1 px-4 py-2 text-white border-gray-600 hover:bg-gray-800">
                   <FiEdit2 /> Edit
                 </Link>
                 <button onClick={() => handleDelete(f._id, f.name)}
-                  className="flex items-center gap-1 text-sm text-red-500 hover:text-red-700 border border-red-200 hover:bg-red-50 dark:hover:bg-red-900/20 px-4 py-2 rounded-full transition">
+                  className="flex items-center gap-1 text-sm text-red-500 hover:text-red-400 border border-red-900 hover:bg-red-900/30 px-4 py-2 rounded-full transition">
                   <FiTrash2 /> Delete
                 </button>
               </div>

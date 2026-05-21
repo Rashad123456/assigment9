@@ -1,35 +1,35 @@
-# 🏆 SportNest - Sports Facility Booking Management System
+#  SportNest - Sports Facility Booking Management System
 
 A full-stack sports facility booking platform built with the MERN Stack and Firebase Authentication.
 
-## 🌐 Live URL
+##  Live URL
 
 > Add your live URL here after deployment
 
 ---
 
-## 📌 Purpose
+##  Purpose
 
 SportNest allows users to explore available sports facilities such as football turfs, badminton courts, swimming lanes, and tennis courts, and make bookings for specific dates and time slots. Facility owners can list and manage their venues.
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🔐 Firebase Authentication (Email/Password + Google)
-- 🏟️ Browse all sports facilities with search & filter
-- 📅 Book facilities with date and time slot selection
-- 👤 User dashboard to view and cancel bookings
-- ➕ Add your own sports facility (with image upload)
-- ✏️ Edit and delete your facilities
-- 🌙 Dark mode toggle
-- 🔒 JWT authentication stored in HTTPOnly cookies
-- 📱 Fully responsive — mobile, tablet, desktop
-- 🎨 Clean, recruiter-friendly UI
+-  Firebase Authentication (Email/Password + Google)
+-  Browse all sports facilities with search & filter
+-  Book facilities with date and time slot selection
+-  user dashboard to view and cancel bookings
+-  Add your own sports facility (with image upload)
+-  Edit and delete your facilities
+-  Dark mode toggle
+-  JWT authentication stored in HTTPOnly cookies
+-  Fully responsive — mobile, tablet, desktop
+- Clean, recruiter-friendly UI
 
 ---
 
-## 🛠️ NPM Packages Used
+##  NPM Packages Used
 
 ### Client
 | Package | Purpose |
@@ -55,7 +55,7 @@ SportNest allows users to explore available sports facilities such as football t
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js v18+
@@ -101,17 +101,4 @@ VITE_FIREBASE_APP_ID=...
 
 ---
 
-## 📁 Project Structure
 
-```
-sportnest/
-├── client/          # React + Vite frontend
-│   └── src/
-│       ├── components/
-│       ├── context/
-│       ├── pages/
-│       └── utils/
-└── server/          # Express backend
-    ├── middleware/
-    └── routes/
-```

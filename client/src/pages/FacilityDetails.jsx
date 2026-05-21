@@ -92,7 +92,7 @@ const FacilityDetails = () => {
           </div>
         </div>
 
-        {/* Right: Booking Form */}
+        
         <div className="lg:col-span-2">
           <div className="card p-6 sticky top-20">
             <h2 className="font-display text-2xl text-gray-900 dark:text-white mb-5">Book This Facility</h2>
