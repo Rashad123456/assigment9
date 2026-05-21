@@ -20,7 +20,7 @@ const AllFacilities = () => {
       const params = {};
       if (search) params.search = search;
       if (activeType !== 'all') params.type = activeType;
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/facilities`, { params });
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/facilities`, { params });
       setFacilities(res.data);
     } catch {
       setFacilities([]);
@@ -83,7 +83,6 @@ const AllFacilities = () => {
         <>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{facilities?.length} facilities found</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {/* এখানে ক্র্যাশ প্রোটেকশন দেওয়া হয়েছে */}
             {facilities?.map(f => <FacilityCard key={f._id} facility={f} />)}
           </div>
         </>

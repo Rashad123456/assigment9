@@ -18,7 +18,7 @@ const EditFacility = () => {
   const [form, setForm] = useState({ name: '', facility_type: '', image: '', location: '', price_per_hour: '', capacity: '', description: '' });
 
   useEffect(() => {
-    axiosSecure.get(`/facilities/${id}`)
+    axiosSecure.get(`/api/facilities/${id}`)
       .then(res => {
         const f = res.data;
         setForm({ name: f.name || '', facility_type: f.facility_type || '', image: f.image || '', location: f.location || '', price_per_hour: f.price_per_hour || '', capacity: f.capacity || '', description: f.description || '' });
@@ -36,7 +36,7 @@ const EditFacility = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      await axiosSecure.put(`/facilities/${id}`, { ...form, price_per_hour: Number(form.price_per_hour), capacity: Number(form.capacity), available_slots: slots });
+      await axiosSecure.put(`/api/facilities/${id}`, { ...form, price_per_hour: Number(form.price_per_hour), capacity: Number(form.capacity), available_slots: slots });
       toast.success('Facility updated!');
       navigate('/manage-facilities');
     } catch {
@@ -90,8 +90,7 @@ const EditFacility = () => {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Time Slots</label>
             <div className="flex flex-wrap gap-2 mb-3">
               {DEFAULT_SLOTS.map(slot => (
-                <button type="button" key={slot} onClick={() => toggleSlot(slot)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition ${slots.includes(slot) ? 'bg-primary-400 text-white border-primary-400' : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-primary-400'}`}>
+                <button type="button" key={slot} onClick={() => toggleSlot(slot)} className={`text-xs px-3 py-1.5 rounded-full border transition ${slots.includes(slot) ? 'bg-primary-400 text-white border-primary-400' : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-primary-400'}`}>
                   {slot}
                 </button>
               ))}

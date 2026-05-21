@@ -17,8 +17,7 @@ const ManageFacilities = () => {
     
     try {
       setLoading(true);
-      // এখানে অতিরিক্ত কুয়েরি প্যারামিটার মুছে শুধু সঠিক রাউটটি দেওয়া হয়েছে
-      const res = await axiosSecure.get('/facilities/my/facilities');
+      const res = await axiosSecure.get('/api/facilities/my/facilities');
       setFacilities(res.data);
     } catch (error) {
       console.error(error);
@@ -48,7 +47,7 @@ const ManageFacilities = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      await axiosSecure.delete(`/facilities/${id}`);
+      await axiosSecure.delete(`/api/facilities/${id}`);
       toast.success('Facility deleted');
       fetchFacilities();
     } catch {
@@ -95,8 +94,7 @@ const ManageFacilities = () => {
                 <Link to={`/edit-facility/${f._id}`} className="btn-outline text-sm flex items-center gap-1 px-4 py-2 text-white border-gray-600 hover:bg-gray-800">
                   <FiEdit2 /> Edit
                 </Link>
-                <button onClick={() => handleDelete(f._id, f.name)}
-                  className="flex items-center gap-1 text-sm text-red-500 hover:text-red-400 border border-red-900 hover:bg-red-900/30 px-4 py-2 rounded-full transition">
+                <button onClick={() => handleDelete(f._id, f.name)} className="flex items-center gap-1 text-sm text-red-500 hover:text-red-400 border border-red-900 hover:bg-red-900/30 px-4 py-2 rounded-full transition">
                   <FiTrash2 /> Delete
                 </button>
               </div>

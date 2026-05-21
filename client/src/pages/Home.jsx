@@ -8,10 +8,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
-    axios.get('https://.vercel.app/api/facilities')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/facilities`)
       .then(res => {
-       
         if(Array.isArray(res.data)){
            setFacilities(res.data.slice(0, 6)); 
         }
@@ -68,7 +66,6 @@ const Home = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* এখানে ঐচ্ছিক চেইনিং (?.) ব্যবহার করা হয়েছে যাতে ক্র্যাশ না করে */}
             {facilities?.map((facility) => (
               <div key={facility._id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border border-gray-100 dark:border-gray-700">
                 <div className="h-48 bg-gray-200 dark:bg-gray-700 flex justify-center items-center overflow-hidden">

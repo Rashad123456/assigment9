@@ -31,11 +31,10 @@ const AddFacility = () => {
     };
 
     try {
-      const res = await axiosSecure.post('/facilities', newFacility);
+      const res = await axiosSecure.post('/api/facilities', newFacility);
       if (res.data.insertedId) {
         toast.success('Facility added successfully! 🎉');
         form.reset();
-        // আপনার নেভিগেশন বার অনুযায়ী পাথ পরিবর্তন করে '/manage' করা হয়েছে
         navigate('/manage'); 
       }
     } catch (error) {
@@ -55,22 +54,11 @@ const AddFacility = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Facility Name</label>
-              <input 
-                type="text" 
-                name="name" 
-                required 
-                className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" 
-                placeholder="e.g. Dhaka Arena" 
-              />
+              <input type="text" name="name" required className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" placeholder="e.g. Dhaka Arena" />
             </div>
-            
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Facility Type</label>
-              <select 
-                name="facility_type" 
-                required 
-                className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white"
-              >
+              <select name="facility_type" required className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white">
                 <option value="football">Football</option>
                 <option value="badminton">Badminton</option>
                 <option value="swimming">Swimming</option>
@@ -78,46 +66,20 @@ const AddFacility = () => {
                 <option value="tennis">Tennis</option>
               </select>
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Location</label>
-              <input 
-                type="text" 
-                name="location" 
-                required 
-                className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" 
-                placeholder="e.g. Dhanmondi, Dhaka" 
-              />
+              <input type="text" name="location" required className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" placeholder="e.g. Dhanmondi, Dhaka" />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Price Per Hour (৳)</label>
-              <input 
-                type="number" 
-                name="price_per_hour" 
-                required 
-                className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" 
-                placeholder="e.g. 1000" 
-              />
+              <input type="number" name="price_per_hour" required className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" placeholder="e.g. 1000" />
             </div>
           </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Image URL (ImgBB)</label>
-            <input 
-              type="url" 
-              name="image" 
-              required 
-              className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" 
-              placeholder="https://i.ibb.co/..." 
-            />
+            <input type="url" name="image" required className="w-full px-4 py-2 bg-black border border-gray-700 rounded focus:outline-none focus:border-primary-500 text-white" placeholder="https://i.ibb.co/..." />
           </div>
-
-          <button 
-            type="submit" 
-            disabled={loading} 
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-4 rounded transition duration-300 flex justify-center items-center mt-4"
-          >
+          <button type="submit" disabled={loading} className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-4 rounded transition duration-300 flex justify-center items-center mt-4">
             {loading ? 'Adding Facility...' : 'Add Facility'}
           </button>
         </form>

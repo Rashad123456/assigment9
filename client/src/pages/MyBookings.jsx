@@ -17,7 +17,7 @@ const MyBookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await axiosSecure.get('/bookings/my');
+      const res = await axiosSecure.get('/api/bookings/my');
       setBookings(res.data);
     } catch {
       toast.error('Failed to load bookings');
@@ -42,7 +42,7 @@ const MyBookings = () => {
     if (!result.isConfirmed) return;
 
     try {
-      await axiosSecure.patch(`/bookings/${id}/cancel`);
+      await axiosSecure.patch(`/api/bookings/${id}/cancel`);
       toast.success('Booking cancelled');
       fetchBookings();
     } catch {
@@ -69,7 +69,6 @@ const MyBookings = () => {
         </div>
       ) : (
         <div className="space-y-4">
-          
           {bookings?.map(b => (
             <div key={b._id} className="card p-5 flex flex-col sm:flex-row sm:items-center gap-4">
               <div className="flex-1 min-w-0">
