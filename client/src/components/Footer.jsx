@@ -29,7 +29,7 @@ const Footer = () => (
           </div>
         </div>
 
-        {/* Quick Links */}
+     
         <div>
           <h5 className="font-semibold text-sm uppercase tracking-widest text-accent-400 mb-4">Quick Links</h5>
           <ul className="space-y-2">
@@ -44,7 +44,7 @@ const Footer = () => (
           </ul>
         </div>
 
-        {/* Contact */}
+      
         <div>
           <h5 className="font-semibold text-sm uppercase tracking-widest text-accent-400 mb-4">Contact Us</h5>
           <ul className="space-y-3">
